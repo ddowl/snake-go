@@ -2,17 +2,40 @@ package main
 
 import tl "github.com/JoelOtter/termloop"
 
-func main() {
-	game := tl.NewGame()
+type Direction int
 
-	screen := game.Screen()
-	screen.SetLevel(tl.NewBaseLevel(tl.Cell{
-		Bg: tl.ColorBlue,
-		Fg: tl.ColorWhite,
-		Ch: ' ',
-	}))
-	screen.AddEntity(tl.NewRectangle(2, 1, 40, 20, tl.RgbTo256Color(201, 189, 91)))
-	screen.AddEntity(NewPellet())
-	screen.SetFps(30)
-	game.Start()
+const (
+	north Direction = iota
+	south
+	east
+	west
+)
+
+type Snake struct {
+	*tl.Entity
+	coords []Coord
+	dir Direction
+}
+
+func NewSnake() *Snake {
+	snake := new(Snake)
+	snake.Entity = tl.NewEntity(1, 1, 2, 1)
+
+	snake.coords = []Coord{
+		{10, 6},
+		{10, 7},
+		{10, 8}, // head
+	}
+	snake.dir = south
+	return snake;
+}
+
+func (snake *Snake) Draw(screen *tl.Screen) {
+	for _, coord := range snake.coords {
+		RenderSquare(screen, coord, &tl.Cell{
+			Fg: tl.ColorGreen,
+			Bg: tl.ColorGreen,
+			Ch: ' ',
+		})
+	}
 }
