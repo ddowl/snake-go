@@ -19,11 +19,7 @@ func NewPellet() *Pellet {
 }
 
 func (pellet *Pellet) Draw(screen *tl.Screen) {
-		RenderSquare(screen, pellet.coord, &tl.Cell{
-			Fg: tl.ColorRed,
-			Bg: tl.ColorRed,
-			Ch: ' ',
-		})
+	RenderSquare(screen, pellet.coord, ColoredCell(tl.ColorRed))
 }
 
 func (pellet *Pellet) Position() (int, int) {

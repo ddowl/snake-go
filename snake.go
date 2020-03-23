@@ -14,7 +14,7 @@ const (
 type Snake struct {
 	*tl.Entity
 	coords []Coord
-	dir Direction
+	dir    Direction
 }
 
 func NewSnake() *Snake {
@@ -27,15 +27,11 @@ func NewSnake() *Snake {
 		{10, 8}, // head
 	}
 	snake.dir = south
-	return snake;
+	return snake
 }
 
 func (snake *Snake) Draw(screen *tl.Screen) {
 	for _, coord := range snake.coords {
-		RenderSquare(screen, coord, &tl.Cell{
-			Fg: tl.ColorGreen,
-			Bg: tl.ColorGreen,
-			Ch: ' ',
-		})
+		RenderSquare(screen, coord, ColoredCell(tl.ColorGreen))
 	}
 }
