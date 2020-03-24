@@ -40,13 +40,21 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 func (snake *Snake) Tick(event tl.Event) {
 	switch event.Key {
 	case tl.KeyArrowDown:
-		snake.dir = south
+		if snake.dir != north {
+			snake.dir = south
+		}
 	case tl.KeyArrowUp:
-		snake.dir = north
+		if snake.dir != south {
+			snake.dir = north
+		}
 	case tl.KeyArrowLeft:
-		snake.dir = west
+		if snake.dir != east {
+			snake.dir = west
+		}
 	case tl.KeyArrowRight:
-		snake.dir = east
+		if snake.dir != west {
+			snake.dir = east
+		}
 	}
 }
 
