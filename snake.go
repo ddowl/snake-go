@@ -31,7 +31,30 @@ func NewSnake() *Snake {
 }
 
 func (snake *Snake) Draw(screen *tl.Screen) {
+	snake.move()
 	for _, coord := range snake.coords {
 		RenderSquare(screen, coord, ColoredCell(tl.ColorGreen))
+	}
+}
+
+func (snake *Snake) move() {
+	for i, c := range snake.coords {
+		snake.coords[i] = nextCoord(c, snake.dir)
+	}
+}
+
+func nextCoord(coord Coord, dir Direction) Coord {
+	x, y := coord.x, coord.y
+	switch dir {
+	case north:
+		return Coord{x, y - 1}
+	case south:
+		return Coord{x, y + 1}
+	case east:
+		return Coord{x + 1, y}
+	case west:
+		return Coord{x - 1, y}
+	default:
+		panic("unknown direction")
 	}
 }

@@ -14,6 +14,6 @@ func main() {
 	screen.AddEntity(tl.NewRectangle(2, 1, 40, 20, tl.RgbTo256Color(201, 189, 91)))
 	screen.AddEntity(NewPellet())
 	screen.AddEntity(NewSnake())
-	screen.SetFps(30)
+	screen.SetFps(10)
 	game.Start()
 }
