@@ -37,10 +37,23 @@ func (snake *Snake) Draw(screen *tl.Screen) {
 	}
 }
 
-func (snake *Snake) move() {
-	for i, c := range snake.coords {
-		snake.coords[i] = nextCoord(c, snake.dir)
+func (snake *Snake) Tick(event tl.Event) {
+	switch event.Key {
+	case tl.KeyArrowDown:
+		snake.dir = south
+	case tl.KeyArrowUp:
+		snake.dir = north
+	case tl.KeyArrowLeft:
+		snake.dir = west
+	case tl.KeyArrowRight:
+		snake.dir = east
 	}
+}
+
+func (snake *Snake) move() {
+	cs := snake.coords
+	head := cs[len(cs)-1]
+	snake.coords = append(cs[1:], nextCoord(head, snake.dir))
 }
 
 func nextCoord(coord Coord, dir Direction) Coord {
@@ -51,9 +64,9 @@ func nextCoord(coord Coord, dir Direction) Coord {
 	case south:
 		return Coord{x, y + 1}
 	case east:
-		return Coord{x + 1, y}
+		return Coord{x + 2, y}
 	case west:
-		return Coord{x - 1, y}
+		return Coord{x - 2, y}
 	default:
 		panic("unknown direction")
 	}
