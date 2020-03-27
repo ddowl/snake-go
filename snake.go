@@ -78,6 +78,11 @@ func (snake *Snake) head() Coord {
 	return cs[len(cs)-1]
 }
 
+func (snake *Snake) tail() []Coord {
+	cs := snake.coords
+	return cs[0:len(cs)-1]
+}
+
 func (snake *Snake) move() {
 	nextHead := nextCoord(snake.head(), snake.dir)
 	snake.lastButt = snake.coords[0]
@@ -102,10 +107,23 @@ func nextCoord(coord Coord, dir Direction) Coord {
 }
 
 func isGameOver(snake *Snake) bool {
-	return isOutOfBounds(snake)
+	return isOutOfBounds(snake) || isOverlapping(snake)
 }
 
 func isOutOfBounds(snake *Snake) bool {
 	h := snake.head()
 	return h.x < 2 || h.y < 2 || h.x > 40 || h.y > 20
+}
+
+func isOverlapping(snake *Snake) bool {
+	return contains(snake.tail(), snake.head())
+}
+
+func contains(s []Coord, e Coord) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
 }
