@@ -65,7 +65,6 @@ func (snake *Snake) Tick(event tl.Event) {
 }
 
 func (snake *Snake) Collide(phys tl.Physical) {
-	game.Log("Snake Collision: %#v", phys)
 	switch p := phys.(type) {
 	case *Pellet:
 		p.move()

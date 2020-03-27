@@ -8,11 +8,9 @@ import (
 
 var gameOver bool
 
-var game *tl.Game
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	game = tl.NewGame()
-	game.SetDebugOn(true)
+	game := tl.NewGame()
 
 	gameOver = false
 
