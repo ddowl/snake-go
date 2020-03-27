@@ -1,6 +1,10 @@
 package main
 
-import tl "github.com/JoelOtter/termloop"
+import (
+	"math/rand"
+
+	tl "github.com/JoelOtter/termloop"
+)
 
 // impl Drawable, DynamicPhysical
 type Pellet struct {
@@ -11,10 +15,7 @@ type Pellet struct {
 func NewPellet() *Pellet {
 	pellet := new(Pellet)
 	pellet.Entity = tl.NewEntity(1, 1, 2, 1)
-	x, y := 6, 4
-	pellet.coord.x = x
-	pellet.coord.y = y
-	pellet.SetPosition(x, y)
+	pellet.move()
 	return pellet
 }
 
@@ -22,14 +23,8 @@ func (pellet *Pellet) Draw(screen *tl.Screen) {
 	RenderSquare(screen, pellet.coord, ColoredCell(tl.ColorRed))
 }
 
-func (pellet *Pellet) Position() (int, int) {
-	return pellet.coord.x, pellet.coord.y
-}
-
-func (pellet *Pellet) Size() (int, int) {
-	return 1, 1
-}
-
-func (pellet *Pellet) Collide(tl.Physical) {
-
+func (pellet *Pellet) move() {
+	x, y := (rand.Intn(10)*2)+2, rand.Intn(20)+1
+	pellet.coord.x, pellet.coord.y = x, y
+	pellet.SetPosition(x, y)
 }
